@@ -5,28 +5,41 @@ import { PageTwo } from './components/pages/PageTwo';
 import { PageThree } from './components/pages/PageThree';
 import { Error404 } from './components/pages/Error404';
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
+import { Model } from './components/pages/Model';
 
 
 function App() {
+
+    const PATH = {
+        PAGE: '/',
+        ADIDAS: '/adidas',
+        PUMA: '/puma',
+        ABIBAS: '/abibas',
+        ERROR404: '/error404'
+    } as const
+
+
     return (
         <div>
             <div className={styles.header}><h1>HEADER</h1></div>
             <div className={styles.body}>
                 <div className={styles.nav}>
-                    <div><NavLink to='/page1' >Page1</NavLink></div>
-                    <div><NavLink to='/page2' >Page2</NavLink></div>
-                    <div><NavLink to='/page3' >Page3</NavLink></div>
+                    <div><NavLink className={({isActive} ) => isActive ? styles.activeNavLink : styles.navLink} to={PATH.ADIDAS} >Adidas</NavLink></div>
+                    <div><NavLink className={({isActive} ) => isActive ? styles.activeNavLink : styles.navLink} to={PATH.PUMA}  >Puma</NavLink></div>
+                    <div><NavLink className={({isActive} ) => isActive ? styles.activeNavLink : styles.navLink} to={PATH.ABIBAS}  >Abibas</NavLink></div>
                 </div>
                 <div className={styles.content}>
                     <Routes>
-                        <Route path="/" element={ <Navigate to={"/page1"}/>}/>
-                        <Route path="/page1" element={ <PageOne />}/>
-                        <Route path="/page2" element={ <PageTwo />}/>
-                        <Route path="/page3" element={ <PageThree />}/>
+                        <Route path={PATH.PAGE} element={ <Navigate to={PATH.ADIDAS}/>}/>
+                        <Route path={PATH.ADIDAS}  element={ <PageOne />}/>
+                        <Route path={PATH.PUMA}  element={ <PageTwo />}/>
+                        <Route path={PATH.ABIBAS}  element={ <PageThree />}/>
+
+                        <Route path='/adidas/:id' element={<Model/>} />
 
                         
-                        <Route path="/error404" element={ <Error404 />}/>
-                        <Route path="/*" element={ <Navigate to={"/error404"}/>}/>
+                        {/* <Route path={PATH.ERROR404}  element={ <Error404 />}/> */}
+                        <Route path="/*" element={<Error404/>}/>
                         
                         
                     </Routes>

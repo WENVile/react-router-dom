@@ -34,3 +34,15 @@
     text-align: center;
     color: white;
 }
+
+.navLink {
+    text-decoration: none;
+    color: #282c34;
+}
+
+
+.activeNavLink {
+    color: #1c6300;
+    text-decoration: underline;
+    font-weight: bold;
+}
